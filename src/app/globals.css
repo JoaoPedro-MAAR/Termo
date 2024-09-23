@@ -74,7 +74,7 @@ body{
   max-height: 2.125rem;
 }
 
-.grid-tentativas{
+.gridTentativas{
   display :grid;
   justify-content: center;
   align-content: center;

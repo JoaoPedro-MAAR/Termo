@@ -1,13 +1,14 @@
 import Image from "next/image";
 import styles from "./page.module.css";
 
+
 export default function Home() {
   return (
-    <><header><h1 className={styles.titulo}>Wordle PT-BR</h1></header><div class="alert-box">
+    <><header><h1 className='titulo'>Wordle PT-BR</h1></header><div className="alert-box">
 
     </div><main>
-        <div className={styles.tentativas}></div>
-        <div className={styles.grid-tentativas}>
+        <div className='tentativas'></div>
+        <div className='gridTentativas'>
 
 
         </div>
@@ -15,10 +16,10 @@ export default function Home() {
         </main>
     
     
-      <div className={styles.teclado}>
-        <div id="row1" className={styles.row}></div>
-        <div id="row2" className={styles.row}></div>
-        <div id="row3" className={styles.row}></div>
+      <div className='teclado'>
+        <div id="row1" className='row'></div>
+        <div id="row2" className='row'></div>
+        <div id="row3" className='row'></div>
  
         </div>
     
