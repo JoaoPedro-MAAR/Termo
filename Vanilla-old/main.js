@@ -219,5 +219,5 @@ function Shake(array){
 
 Mk_Grid_Tentativas(6);
 
-Make_keyboard();
+console.log(Make_keyboard());
 Start_game();

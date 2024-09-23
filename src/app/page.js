@@ -4,12 +4,44 @@ import styles from "./page.module.css";
 
 export default function Home() {
   return (
-    <><header><h1 className='titulo'>Wordle PT-BR</h1></header><div className="alert-box">
-
-    </div><main>
-        <div className='tentativas'></div>
-        <div className='gridTentativas'>
-
+    <><header>
+      <h1 className='titulo'>Wordle PT-BR</h1>
+      </header>
+      <div className="alert-box">
+      </div>
+      <main>
+        
+      <div className='gridTentativas'>
+          <div className='bloco'></div>
+          <div className='bloco'></div>
+          <div className='bloco'></div>
+          <div className='bloco'></div>
+          <div className='bloco'></div>
+          <div className='bloco'></div>
+          <div className='bloco'></div>
+          <div className='bloco'></div>
+          <div className='bloco'></div>
+          <div className='bloco'></div>
+          <div className='bloco'></div>
+          <div className='bloco'></div>
+          <div className='bloco'></div>
+          <div className='bloco'></div>
+          <div className='bloco'></div>
+          <div className='bloco'></div>
+          <div className='bloco'></div>
+          <div className='bloco'></div>
+          <div className='bloco'></div>
+          <div className='bloco'></div>
+          <div className='bloco'></div>
+          <div className='bloco'></div>
+          <div className='bloco'></div>
+          <div className='bloco'></div>
+          <div className='bloco'></div>
+          <div className='bloco'></div>
+          <div className='bloco'></div>
+          <div className='bloco'></div>
+          <div className='bloco'></div>
+          <div className='bloco'></div>          
 
         </div>
 

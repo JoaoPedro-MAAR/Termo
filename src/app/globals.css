@@ -75,7 +75,7 @@ body{
 }
 
 .gridTentativas{
-  display :grid;
+  display: grid;
   justify-content: center;
   align-content: center;
   flex-grow: 1;
