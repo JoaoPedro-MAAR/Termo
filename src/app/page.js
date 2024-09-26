@@ -1,57 +1,36 @@
+"use client";
+
 import Image from "next/image";
 import styles from "./page.module.css";
+import EventListenerComponent from "./events/eventListenercomponent";
+import GridComponent from "@/app/events/dynamic_gt.js";
+import KeyboardComponent from "@/app/events/dynamic_kb.js";
+import {Clique_teclado_virtual , tentativa , backspace , Botar_letra} from "@/app/events/normalEvents.js";
 
 
 export default function Home() {
   return (
-    <><header>
+    <>
+    <div>
+    <EventListenerComponent/>
+    <header>
+
       <h1 className='titulo'>Wordle PT-BR</h1>
       </header>
       <div className="alert-box">
       </div>
       <main>
         
-      <div className='gridTentativas'>
-          <div className='bloco'></div>
-          <div className='bloco'></div>
-          <div className='bloco'></div>
-          <div className='bloco'></div>
-          <div className='bloco'></div>
-          <div className='bloco'></div>
-          <div className='bloco'></div>
-          <div className='bloco'></div>
-          <div className='bloco'></div>
-          <div className='bloco'></div>
-          <div className='bloco'></div>
-          <div className='bloco'></div>
-          <div className='bloco'></div>
-          <div className='bloco'></div>
-          <div className='bloco'></div>
-          <div className='bloco'></div>
-          <div className='bloco'></div>
-          <div className='bloco'></div>
-          <div className='bloco'></div>
-          <div className='bloco'></div>
-          <div className='bloco'></div>
-          <div className='bloco'></div>
-          <div className='bloco'></div>
-          <div className='bloco'></div>
-          <div className='bloco'></div>
-          <div className='bloco'></div>
-          <div className='bloco'></div>
-          <div className='bloco'></div>
-          <div className='bloco'></div>
-          <div className='bloco'></div>          
+      
+        <GridComponent tentativas={6}/>
 
-        </div>
+        
 
         </main>
     
     
-      <div className='teclado'>
-        <div id="row1" className='row'></div>
-        <div id="row2" className='row'></div>
-        <div id="row3" className='row'></div>
+
+        <KeyboardComponent/>
  
         </div>
     
