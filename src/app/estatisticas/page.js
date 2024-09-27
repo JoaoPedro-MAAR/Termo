@@ -1,19 +1,30 @@
 'use client';
-import Image from "next/image";
-import styles from "./page.module.css";
-
-
+import { useState } from "react";
+import Storage from "@/services/storage";
 
 
 export default function Home() {
 
   const [inputValue, setInputValue] = useState("");
+  const [submittedValue, setSubmittedValue] = useState("");
+  const [resposta, setResposta] = useState([]);
+
+  async function getData(palavra) {
+    return await Storage.readPartidas(palavra);
+  }
 
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log("Input Value:", inputValue);
-    // Aqui você pode armazenar o valor do input em uma variável ou fazer outra lógica
-  };
+    setSubmittedValue(inputValue);
+
+    getData(inputValue).then((data) => setResposta(data));
+
+    resposta.forEach((resposta) => {
+      console.log(resposta);
+    });
+
+  }
 
   return (
     <><header>
@@ -23,14 +34,19 @@ export default function Home() {
       <form onSubmit={handleSubmit}>
         <input
           type="text" 
-          placeholder="Digite aqui..." 
-          maxlength="5"
+          placeholder="Pesquise uma palavra" 
+          maxLength="5"
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}></input>
 
         <input type="submit" value="Pesquisar"></input>
       </form>
     
-    <div id="app"></div></>
+    <div id="app">
+      <h1 className="titulo">Palavra: {submittedValue}</h1>
+
+      
+       
+    </div></>
   );
 }

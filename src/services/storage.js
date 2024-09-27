@@ -1,14 +1,26 @@
 import { createClient } from '@supabase/supabase-js';
+
  
-const API_KEY = import.meta.env.VITE_APP_SUPABASE_KEY;
-const API_URL = import.meta.env.VITE_APP_SUPABASE_URL;
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
  
-const supabase = createClient(API_URL, API_KEY);
+const supabase = createClient(supabaseUrl, supabaseKey);
  
-async function create(resource, data) {}
+async function createPalavra(resource, data) {
+    const { data: createdData, error } = await supabase
+    .from(resource)
+    .insert(data)
+    .select('*');
+
+    if (error) {
+        throw error;
+    }
+
+    return createdData?.[0];
+}
 
 async function read(resource, id) {
-    const { data, error } = id
+    const { data: dados, error } = id
     ? await supabase.from(resource).select('*').eq('id', id)
     : await supabase.from(resource).select('*');
 
@@ -18,9 +30,23 @@ async function read(resource, id) {
 
     return data;
 }
+async function readPartidas(id) {
+    
+
+    const { data: palavras, error } = await supabase
+        .from('partida')
+        .select('*')
+        .eq('palavra', id);
+    
+    if (error) {
+        throw error;
+    }
+
+    return palavras;
+}
 
 async function update(resource, id, data) {}
 
 async function remove(resource, id) {}
  
-export default { create, read, update, remove };
+export default { createPalavra, read, update, remove, readPartidas };
