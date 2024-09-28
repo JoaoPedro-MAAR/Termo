@@ -5,6 +5,9 @@ export default async function getEstatisticas(palavra) {
   if (!partidas) {
     return false;
   }
+  if (partidas[0].palavra_text) {
+    return { totalPartidas: 0, percentualVitorias: 0, percentualTentativas1: 0, percentualTentativas2: 0, percentualTentativas3: 0, percentualTentativas4: 0, percentualTentativas5: 0, percentualTentativas6: 0 };
+  }
   const totalPartidas = partidas.length;
 
   let vitorias = 0;

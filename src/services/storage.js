@@ -60,7 +60,7 @@ async function readPartidas(id) {
         throw error;
     }
     if (palavras.length === 0) {
-        palavras = await searchPalavra('palavra', id);
+        palavras = await searchPalavra(id);
         return palavras.length === 0 ? false : palavras;
     }
 
