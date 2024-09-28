@@ -1,5 +1,5 @@
 'use client';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Storage from "@/services/storage";
 import Metricas from "@/components/metricas";
 import getEstatisticas from "@/services/estatisticas";
@@ -10,7 +10,6 @@ export default function Home() {
   // variaveis de estado
   const [inputValue, setInputValue] = useState("");
   const [submittedValue, setSubmittedValue] = useState("");
-  const [partidas, setpartidas] = useState([]);
   const [vitorias, setVitorias] = useState(0);
   const [totalPartidas, setTotalPartidas] = useState(0);
   const [percentualTentativas1, setPercentualTentativas1] = useState(0);
@@ -19,11 +18,28 @@ export default function Home() {
   const [percentualTentativas4, setPercentualTentativas4] = useState(0);
   const [percentualTentativas5, setPercentualTentativas5] = useState(0);
   const [percentualTentativas6, setPercentualTentativas6] = useState(0);
+  const [submitInvalido, setSubmitInvalido] = useState(false);
+  const [msgErro, setMsgErro] = useState("");
 
 
   async function getData(palavra) {
     return await getEstatisticas(palavra);
   }
+
+  function resetDados(msgErro) {
+    setSubmitInvalido(true);
+    setSubmittedValue("");
+    setTotalPartidas(0);
+    setVitorias(0);
+    setPercentualTentativas1(0);
+    setPercentualTentativas2(0);
+    setPercentualTentativas3(0);
+    setPercentualTentativas4(0);
+    setPercentualTentativas5(0);
+    setPercentualTentativas6(0);
+    setMsgErro(msgErro);
+  }
+
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -31,32 +47,35 @@ export default function Home() {
 
     if (inputValue.length == 5 && inputValue.match(/^[a-zA-Z]+$/))  {
       setSubmittedValue(inputValue);
-
-      getData(inputValue).then((data) => setpartidas(data));
-      setTotalPartidas(partidas.totalPartidas);
-      setVitorias(partidas.percentualVitorias);
-      setPercentualTentativas1(partidas.percentualTentativas1);
-      setPercentualTentativas2(partidas.percentualTentativas2);
-      setPercentualTentativas3(partidas.percentualTentativas3);
-      setPercentualTentativas4(partidas.percentualTentativas4);
-      setPercentualTentativas5(partidas.percentualTentativas5);
-      setPercentualTentativas6(partidas.percentualTentativas6);
     } 
     
     else {
-      setSubmittedValue("");
-      setTotalPartidas(0);
-      setVitorias(0);
-      setPercentualTentativas1(0);
-      setPercentualTentativas2(0);
-      setPercentualTentativas3(0);
-      setPercentualTentativas4(0);
-      setPercentualTentativas5(0);
-      setPercentualTentativas6(0);
+      resetDados("A palavra deve conter 5 letras, e ser composta apenas por letras");
     }
     
 
   }
+
+  useEffect(() => {
+    if (submittedValue.length === 5) {
+      getData(submittedValue).then((data) => {
+        if (!data) {
+          resetDados("Palavra não encontrada");
+          return;
+        }
+        setTotalPartidas(data.totalPartidas);
+        setVitorias(data.percentualVitorias);
+        setPercentualTentativas1(data.percentualTentativas1);
+        setPercentualTentativas2(data.percentualTentativas2);
+        setPercentualTentativas3(data.percentualTentativas3);
+        setPercentualTentativas4(data.percentualTentativas4);
+        setPercentualTentativas5(data.percentualTentativas5);
+        setPercentualTentativas6(data.percentualTentativas6);
+        setSubmitInvalido(false);
+      });
+    }
+  }, [submittedValue]);
+
 
   return (
     <><header>
@@ -76,6 +95,8 @@ export default function Home() {
     
     <div id="app">
     <Metricas
+            showMsgErro={submitInvalido}
+            msgErro={msgErro}
             palavra={submittedValue}
             totalPartidas={totalPartidas}
             pctWin={vitorias}
@@ -87,5 +108,6 @@ export default function Home() {
             pctTry6={percentualTentativas6}
           />
     </div></>
+    
   );
 }

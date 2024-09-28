@@ -2,6 +2,9 @@ import Storage from "./storage";
 
 export default async function getEstatisticas(palavra) {
   const partidas = await Storage.readPartidas(palavra);
+  if (!partidas) {
+    return false;
+  }
   const totalPartidas = partidas.length;
 
   let vitorias = 0;

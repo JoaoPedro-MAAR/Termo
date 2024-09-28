@@ -19,6 +19,7 @@ async function createPalavra(resource, data) {
     return createdData?.[0];
 }
 
+
 async function read(resource, id) {
     const { data: dados, error } = id
     ? await supabase.from(resource).select('*').eq('id', id)
@@ -30,16 +31,37 @@ async function read(resource, id) {
 
     return data;
 }
+
+
+async function searchPalavra(palavra) {
+    const { data: palavras, error } = await supabase
+        .from('palavra')
+        .select('*')
+        .eq('palavra_text', palavra);
+
+    if (error) {
+        throw error;
+    }
+
+    return palavras;
+    
+}
+
+
 async function readPartidas(id) {
     
 
-    const { data: palavras, error } = await supabase
+    let { data: palavras, error } = await supabase
         .from('partida')
         .select('*')
         .eq('palavra', id);
     
     if (error) {
         throw error;
+    }
+    if (palavras.length === 0) {
+        palavras = await searchPalavra('palavra', id);
+        return palavras.length === 0 ? false : palavras;
     }
 
     return palavras;
