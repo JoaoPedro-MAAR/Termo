@@ -1,17 +1,27 @@
+/*import React, { useRef } from 'react';  
+const pegar_grid_tentativas = () => { return gridRef.current; }
+const gridRef = useRef(null);*/
 
+import React, { useState } from 'react';
 
-const GridComponent = (tentativas) => {
+const GridComponent = ({blocos, Attbloco }) => {
 
-    const numero_de_blocos = Array.from({length:tentativas * 5});
+  return (
+    <>
+      <div className="gridTentativas">
+        {blocos.map(bloco => (
+          <div 
+            key={bloco.id} 
+            className={bloco.className} 
+            estadoatual={bloco.estadoatual} 
+            dataletter={bloco.dataletter}
+            >
+            
+          </div>
+        ))}
+      </div>
+    </>
+  );
+};
 
-    return (
-    <div className="gridTentativas">
-      {numero_de_blocos.map(() => <div className="bloco"></div>)}
-    </div>
-  )
-  }
-
-
-/*let log = Mk_Grid_Tentativas(6)
-console.log(log)*/
-export default GridComponent;
+export { GridComponent }; //, pegar_grid_tentativas};

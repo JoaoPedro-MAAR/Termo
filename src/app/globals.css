@@ -84,6 +84,7 @@ body{
   grid-template-rows: repeat(6,3.8em);
   gap: .25em;
   margin-bottom: 1em;
+  color:white;
 }
 
 
@@ -99,19 +100,19 @@ body{
   
 }
 
-.bloco[estado-atual="selecionado"]{
+.bloco[estadoatual="selecionado"]{
   border-color: whitesmoke;
 }
 
-.bloco[estado-atual="errado"]{
+.bloco[estadoatual="errado"]{
   background-color:red;
 }
 
-.bloco[estado-atual="certo"]{
+.bloco[estadoatual="certo"]{
   background-color:green;
 }
 
-.bloco[estado-atual="p-errado"]{
+.bloco[estadoatual="p-errado"]{
   background-color:#c9b458;
 }
 

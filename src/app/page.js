@@ -1,40 +1,76 @@
 "use client";
-
+import { useState, useRef, useContext } from "react";
 import Image from "next/image";
 import styles from "./page.module.css";
 import EventListenerComponent from "./events/eventListenercomponent";
-import GridComponent from "@/app/events/dynamic_gt.js";
-import KeyboardComponent from "@/app/events/dynamic_kb.js";
-import {Clique_teclado_virtual , tentativa , backspace , Botar_letra} from "@/app/events/normalEvents.js";
+import {GridComponent} from "./events/dynamic_gt.js";
+import KeyboardComponent from "./events/dynamic_kb.js";
+import {Clique_teclado, Clique_teclado_virtual} from "./events/normalEvents.js";
+
+import AcabouProvider,{Acabou} from "@/app/boolcontext.js";
+//import {certo} from "@/app/events/visualEvents.js";
+import { createContext } from "react";
+
+
+
+export function AtualizarBlocos( id, estadoatual, dataletter, setBlocos){
+  setBlocos(prevBlocos => prevBlocos.map(bloco => 
+    bloco.id === id ? { ...bloco, estadoatual, dataletter } : bloco
+  ));
+}
+export const AttBloco = (id, estadoatual, dataletter, setBlocos) => {
+  setBlocos(prevBlocos => prevBlocos.map(bloco => 
+    bloco.id === id ? { ...bloco, estadoatual, dataletter } : bloco
+  ));
+};
+
+
+
+
 
 
 export default function Home() {
+  const [blocos, setBlocos] = useState(Array.from({ length: 30 }).map((_, index) => ({
+    id: index,
+    estadoatual: 'nenhum',
+    dataletter: 'ç',
+    className: 'bloco'
+  })));
+
+  const {value , toggleValue} = useContext(Acabou);
+
+
   return (
     <>
     <div>
-    <EventListenerComponent/>
+      <EventListenerComponent/>
+        
     <header>
 
       <h1 className='titulo'>Wordle PT-BR</h1>
       </header>
       <div className="alert-box">
       </div>
+      
       <main>
         
       
-        <GridComponent tentativas={6}/>
+        <GridComponent blocos={blocos} Attbloco={AttBloco}/>
+        
 
         
 
         </main>
+        
     
     
 
         <KeyboardComponent/>
  
-        </div>
+    </div>
     
-    <div id="app"></div></>
+    <div id="app"></div>
+    </>
     /*<div className={styles.page}>
       <main className={styles.main}>
         <Image

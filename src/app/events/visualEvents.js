@@ -1,10 +1,11 @@
 
+function getAlertBOX() {
+    return document.querySelector(".alert-box");
+}
 
 
 
-
-
-function Shake(array){
+export function Shake(array){
     array.forEach((element) => {
       element.classList.add("shake")
      
@@ -17,12 +18,12 @@ function Shake(array){
   
 
 
-function ShowAlert(texto, duration = 1000) {
+export function ShowAlert(texto, duration = 1000) {
     const alert = document.createElement("div");
     alert.innerHTML = texto;
     alert.classList.add("alert");
   
-    Alert_box.insertAdjacentElement("afterbegin", alert);
+    getAlertBOX().insertAdjacentElement("afterbegin", alert);
     if (duration == null) return;
   
     setTimeout(() => {
@@ -34,3 +35,4 @@ function ShowAlert(texto, duration = 1000) {
     }, duration);
   }
   
+

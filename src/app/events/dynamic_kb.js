@@ -26,7 +26,7 @@ const KeyboardComponent = () => {
       <div className="row">
       {resto_teclas.map((e) => (
         <button className="key" data-key={e.id} key={e.id} onClick={Clique_teclado_virtual}>
-          {e.id}
+          {e.icone}
         </button>
       ))}
       </div>

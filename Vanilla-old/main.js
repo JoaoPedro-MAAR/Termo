@@ -116,6 +116,7 @@ function Clique_teclado_virtual(e) {
     return;
   }
 }
+
 export function Clique_teclado(e) {
   if (e.key === "Enter") {
     tentativa();
