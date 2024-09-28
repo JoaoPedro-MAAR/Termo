@@ -1,10 +1,19 @@
 import Image from "next/image";
 import styles from "./page.module.css";
+import Link from 'next/link';
 
 
 export default function Home() {
   return (
     <><header>
+      <div className="button-container">
+        <Link href="@/app/autenticacao/">
+          <button className="action-button">Login</button>
+        </Link>
+        <Link href="/registro">
+          <button className="action-button">Registrar</button>
+        </Link>
+      </div>
       <h1 className='titulo'>Wordle PT-BR</h1>
       </header>
       <div className="alert-box">
@@ -56,6 +65,7 @@ export default function Home() {
         </div>
     
     <div id="app"></div></>
+
     /*<div className={styles.page}>
       <main className={styles.main}>
         <Image
