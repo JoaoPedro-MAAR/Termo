@@ -48,6 +48,22 @@ async function searchPalavra(palavra) {
 }
 
 
+async function searchUsuario(data) {
+    const { data: usuarios, error } = await supabase
+        .from('usuario')
+        .select('*')
+        .eq('email', data.email)
+        .eq('senha', data.senha);
+
+    if (error) {
+        throw error;
+    }
+
+    return usuarios?.[0];
+    
+}
+
+
 async function readPartidas(id) {
     
 
@@ -67,6 +83,11 @@ async function readPartidas(id) {
     return palavras;
 }
 
+
+async function createUsuario(data) {
+    return await createPalavra('usuario', data);
+}
+
 async function createPartida(data) {
     const { data: createdData, error } = await supabase
     .from('partida')
@@ -80,8 +101,9 @@ async function createPartida(data) {
     return createdData?.[0];
 }
 
+
 async function update(resource, id, data) {}
 
 async function remove(resource, id) {}
  
-export default { createPalavra, read, update, remove, readPartidas };
+export default { createPalavra, read, update, remove, readPartidas, createUsuario, searchUsuario };

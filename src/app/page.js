@@ -28,6 +28,7 @@ export const AttBloco = (id, estadoatual, dataletter, setBlocos) => {
 
 
 
+import ButtonComponent from "./ButtonComponent";
 
 export default function Home() {
   const [blocos, setBlocos] = useState(Array.from({ length: 30 }).map((_, index) => ({
@@ -46,6 +47,7 @@ export default function Home() {
       <EventListenerComponent/>
         
     <header>
+      <ButtonComponent />
 
       <h1 className='titulo'>Wordle PT-BR</h1>
       </header>
@@ -69,6 +71,7 @@ export default function Home() {
  
     </div>
     
+
     <div id="app"></div>
     </>
     /*<div className={styles.page}>
