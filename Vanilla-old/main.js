@@ -32,7 +32,11 @@ var count_erro = 0
 
 const TAMANHO_PALAVRA = 5;
 
-const grid_tentativas = document.querySelector(".grid-tentativas");
+const grid_tentativas = document.querySelector(".gridTentativas");
+
+function pegar_grid_tentativas() {
+  return document.querySelector("gridTentativas");
+}
 
 const keyboardHTML = document.querySelector(".teclado");
 let rows_keyboard = document.querySelector("#row1");
@@ -112,7 +116,8 @@ function Clique_teclado_virtual(e) {
     return;
   }
 }
-function Clique_teclado(e) {
+
+export function Clique_teclado(e) {
   if (e.key === "Enter") {
     tentativa();
   }
@@ -129,11 +134,14 @@ function Clique_teclado(e) {
 
 function Botar_letra(e) {
   //Funcão que bota a letra no grid de tentativas onde não tem uma letra
-  let lista_dos_selecionados = grid_tentativas.querySelectorAll(
-    '[estado-atual="selecionado"]',
-  );
 
-  if (lista_dos_selecionados.length >= TAMANHO_PALAVRA) return;
+  let grid = pegar_grid_tentativas()
+  let lista_dos_selecionados = grid.querySelectorAll('[estado-atual="selecionado"]',);
+  
+
+  //  let lista_dos_selecionados = grid_tentativas.querySelectorAll('[estado-atual="selecionado"]')
+
+  if (lista_dos_selecionados.length >= 5) return;
   //Busca pelo primeiro bloco onde não tem nenhuma propriedade chamada data letter
   const proximo_Bloco = grid_tentativas.querySelector(":not([data-letter])");
 
@@ -216,8 +224,3 @@ function Shake(array){
 }
 
 
-
-Mk_Grid_Tentativas(6);
-
-console.log(Make_keyboard());
-Start_game();

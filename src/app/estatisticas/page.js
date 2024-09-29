@@ -46,7 +46,7 @@ export default function Home() {
     console.log("Input Value:", inputValue);
 
     if (inputValue.length == 5 && inputValue.match(/^[a-zA-Z]+$/))  {
-      setSubmittedValue(inputValue);
+      setSubmittedValue(inputValue.toLowerCase());
     } 
     
     else {

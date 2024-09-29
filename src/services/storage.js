@@ -83,10 +83,23 @@ async function readPartidas(id) {
     return palavras;
 }
 
-function createUsuario(data) {
-    return createPalavra('usuario', data);
+
+async function createUsuario(data) {
+    return await createPalavra('usuario', data);
 }
 
+async function createPartida(data) {
+    const { data: createdData, error } = await supabase
+    .from('partida')
+    .insert(data)
+    .select();
+
+    if (error) {
+        throw error;
+    }
+
+    return createdData?.[0];
+}
 
 
 async function update(resource, id, data) {}
