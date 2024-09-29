@@ -1,0 +1,42 @@
+.progress-bar-wrapper {
+    display: flex;
+    align-items: center;
+    color: #e0e0df;
+    padding: auto;
+    font-weight: bolder;
+  }
+
+.progress-bar-container {
+    width: 100%;
+    background-color: #e0e0df;
+    border-radius: 15px;
+    overflow: hidden;
+    margin-bottom: 15px;
+    text-align: end;
+    color: red  ;
+    font-weight: bolder;
+    font-size: large;
+    position: relative;
+  }
+  
+  .progress-bar-fill {
+    height: 30px;
+    background-color: #76c7c0;
+    width: 0;
+    transition: width 0.5s ease-in-out;
+    display: flex;
+    align-items: center;
+    
+  }
+
+  .no-wrap-text {
+    white-space: nowrap; /* Impede a quebra de linha */
+    margin-right: 5px; /* Adiciona um espaço à esquerda da barra de progresso */
+    margin-bottom: 15px;
+    align-self: center; /* Alinha o texto verticalmente ao centro */
+  }
+
+  .progress-bar-text {
+    margin-left: 10px; /* Adiciona um leve espaço antes do texto */
+    color: red; /* Ajuste a cor do texto conforme necessário */
+  }
