@@ -67,6 +67,8 @@ async function readPartidas(id) {
     return palavras;
 }
 
+
+
 async function update(resource, id, data) {}
 
 async function remove(resource, id) {}

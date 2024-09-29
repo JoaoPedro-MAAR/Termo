@@ -12,7 +12,13 @@ body{
   font-size: 3em;
   margin-bottom: 50px;
 }
-
+.titulo-secundario {
+  font-family: 'Times New Roman', serif;
+  font-size: 35px;
+  text-align: center;
+  margin-top: -5px;
+  margin-bottom: 15px;
+}
 .teclado {
   display: flex;
   flex-direction: column;
@@ -248,4 +254,63 @@ align-items: center;}
 .action-button:hover {
   background-color: white; 
   color: black; 
+}
+
+.card {
+  background-color: #bbbbbb; /* Fundo do card */
+  padding: 20px; /* Espaçamento interno do card */
+  border-radius: 10px; /* Bordas arredondadas */
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Sombra do card */
+  width: 100%; /* Largura do card */
+  max-width: 400px; /* Largura máxima do card */
+  text-align: center; /* Centraliza o texto dentro do card */
+}
+form {
+  display: flex; /* Flexbox para melhor layout */
+  flex-direction: column; /* Coluna */
+}
+
+label {
+  text-align: left; /* Alinha o texto do rótulo à esquerda */
+  margin-bottom: 5px; /* Espaço abaixo do rótulo */
+  font-family: 'Times New Roman', serif;
+  font-size: 20px;
+}
+
+input {
+  margin-bottom: 15px; /* Espaço abaixo dos campos de input */
+  padding: 10px; /* Espaçamento interno nos campos */
+  border: none; /* Remove borda padrão */
+  border-radius: 5px; /* Bordas arredondadas */
+  width: calc(100% - 20px); /* Largura total do input menos o padding */
+}
+button {
+  padding: 10px; /* Espaçamento interno no botão */
+  border: none; /* Remove borda padrão */
+  border-radius: 5px; /* Bordas arredondadas */
+  background-color: #2e2e2e; /* Cor do botão */
+  color: white; /* Texto do botão em branco */
+  cursor: pointer; /* Muda o cursor ao passar sobre o botão */
+  font-family: 'Times New Roman', serif;
+  font-size: 20px;
+}
+
+button:hover {
+  background-color: #000000; /* Cor do botão ao passar o mouse */
+}
+a {
+  font-family: 'Times New Roman', serif;
+  color: rgb(37, 36, 36);
+}
+
+a:hover {
+  color: white;
+}
+.paragrafo {
+  font-family: 'Times New Roman', serif;
+  font-size: 20px;
+}
+.linktitulo{
+  color: white;
+  text-decoration: none;
 }
