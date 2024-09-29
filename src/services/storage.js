@@ -67,6 +67,19 @@ async function readPartidas(id) {
     return palavras;
 }
 
+async function createPartida(data) {
+    const { data: createdData, error } = await supabase
+    .from('partida')
+    .insert(data)
+    .select();
+
+    if (error) {
+        throw error;
+    }
+
+    return createdData?.[0];
+}
+
 async function update(resource, id, data) {}
 
 async function remove(resource, id) {}
