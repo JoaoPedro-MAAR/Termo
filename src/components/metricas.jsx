@@ -15,11 +15,17 @@ export default function Metricas({
     pctTry5, 
     pctTry6
 }) {
+    
+    function capitalizeFirstLetter(string) {
+        if (!string) return string;
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
+    
     return (
         <div>
             {showMsgErro? <p className="error-message">Erro: {msgErro}</p>:null}
             
-            <h1 className="titulo">Palavra: {palavra.length===5?palavra:"-"}</h1>
+            <h1 className="titulo">Palavra: {palavra.length===5?capitalizeFirstLetter(palavra):"-"}</h1>
 
             <h1 className="titulo">Total de Partidas: {totalPartidas}</h1>
 
