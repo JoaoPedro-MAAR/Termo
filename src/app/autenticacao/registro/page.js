@@ -1,5 +1,7 @@
-import { useState } from 'react';
+'use client';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Storage from '@/services/storage';
 
 const Registro = () => {
     const [nome, setNome] = useState('');
@@ -7,6 +9,7 @@ const Registro = () => {
     const [senha, setSenha] = useState('');
     const [confirmacaoSenha, setConfirmacaoSenha] = useState('');
     const [error, setError] = useState(null);
+    const [registro, setRegistro] = useState(null);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -15,15 +18,31 @@ const Registro = () => {
             setError("As senhas não coincidem.");
             return;
         }
-        
-        
-        const userData = JSON.parse(localStorage.getItem('users')) || [];
-        userData.push({ nome, email, senha });
-        localStorage.setItem('users', JSON.stringify(userData));
 
-        alert('Usuário registrado com sucesso!');
-        window.location.href = '/autenticacao/login'; 
+        setRegistro({ 
+            nome: nome,
+            email: email,
+            senha: senha
+        })
+        
+        /*const userData = JSON.parse(localStorage.getItem('users')) || [];
+        userData.push({ nome, email, senha });
+        localStorage.setItem('users', JSON.stringify(userData));*/
     };
+
+    useEffect(() => {
+        if (registro) {
+            Storage.createUsuario(registro).then((data) => {
+                console.log(data);
+                if (data) {
+                    setError(null);
+                    alert('Usuário registrado com sucesso!');
+                    window.location.href = '/autenticacao/login'; 
+                } else {
+                    setError('Erro ao registrar usuário.');
+                }
+            });
+    }}, [registro]);
 
     return (
         <div>

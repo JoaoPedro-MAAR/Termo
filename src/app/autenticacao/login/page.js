@@ -1,26 +1,43 @@
-import { useState } from 'react';
+'use client';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import Storage from '@/services/storage';
+
+
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
     const [error, setError] = useState(null);
     const [successMessage, setSuccessMessage] = useState('');
+    const [formSubmitted, setFormSubmitted] = useState(false);
 
+
+    useEffect(() => {
+        if (formSubmitted) {
+            Storage.searchUsuario({ email, senha }).then((data) => {
+                console.log(data);
+                if (data) {
+                    setSuccessMessage('Login realizado com sucesso!');
+                    setError(null);
+                    localStorage.setItem('usuario', JSON.stringify(data));
+                    window.location.href = '/'; 
+                } else {
+                    setError('Credenciais incorretas.'); 
+                    setSuccessMessage('');
+                    setFormSubmitted(false);
+                }
+            });
+        }
+        
+    }, [formSubmitted]);
+
+    
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        const userData = JSON.parse(localStorage.getItem('users')) || [];
-        const usuario = userData.find(user => user.email === email && user.senha === senha);
+        setFormSubmitted(true);
 
-        if (usuario) {
-            setSuccessMessage('Login realizado com sucesso!');
-            setError(null);
-            window.location.href = '/'; 
-        } else {
-            setError('Credenciais incorretas.'); 
-            setSuccessMessage('');
-        }
     };
 
     return (
