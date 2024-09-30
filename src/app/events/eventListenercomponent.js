@@ -133,17 +133,29 @@ function Botar_letra(e) {
       //proximo_Bloco.setAttribute("estado-atual", "selecionado");
     }
 
+let vitoria = false;
+export function getVitoria(){
+  return vitoria
+}
+
+
+
+
 function ParaTudoEspecial(count_erro, event) {
       console.log('para tudo especial');
       
       
       document.removeEventListener('keydown', event);
-      if (count_erro != 6) {document.addEventListener('keyup', (e) => {ShowAlert("parabens, você ganhou!");Shake(getAllBlocos())})} 
+      if (count_erro != 6) {
+        document.addEventListener('keyup', (e) => {ShowAlert("parabens, você ganhou!");Shake(getAllBlocos())})
+        vitoria = true;} 
       else {
         document.addEventListener('keyup', (e) => {
           ShowAlert(`Errou paizão, a palavra era <b>${Palavra_certa_com_caracteres_especiais.toUpperCase()}</b>. mais sorte na próxima :/`, 2000);
           Shake(getAllBlocos())
-        })}
+        })
+      
+      vitoria = false;}
       Shake(getAllBlocos())
       
     }

@@ -1,5 +1,5 @@
 "use client";
-import { useState, useRef, useContext } from "react";
+import { useState, useRef, useContext, useEffect } from "react";
 import Image from "next/image";
 import styles from "./page.module.css";
 import EventListenerComponent from "./events/eventListenercomponent";
@@ -25,7 +25,9 @@ export const AttBloco = (id, estadoatual, dataletter, setBlocos) => {
 };
 
 
-
+function getUsuario(){
+  return usuario;
+}
 
 
 import ButtonComponent from "./ButtonComponent";
@@ -40,10 +42,21 @@ export default function Home() {
 
   const {value , toggleValue} = useContext(Acabou);
 
+  const [usuario, setUsuario] = useState(null);
+  useEffect (() => {
+    const storedUser = localStorage.getItem('usuario');
+    if (storedUser === null) {
+      // Levar a seção de login
+      window.location.href = 'autenticacao/login';
+
+    }
+    setUsuario(JSON.parse(storedUser));
+  })
 
   return (
     <>
     <div>
+
       <EventListenerComponent/>
         
     <header>

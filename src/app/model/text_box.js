@@ -17,6 +17,10 @@ export function AddTextBox (resposta){
 
 let tentativas=[]
 
+export function getTentativas(){
+  return tentativas
+}
+
 function AnaliseTentativa (main,resposta) {
     /// armazena em variáveis a área onde fica as palavras enviadas, o que o usuario acabou de enviar, e o resultado pós analise, respectivamente.
     let tentativa = pegar_selecionados()

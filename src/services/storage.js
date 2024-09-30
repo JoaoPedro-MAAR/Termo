@@ -63,6 +63,38 @@ async function searchUsuario(data) {
     
 }
 
+async function GetRandomPalavra() {
+    let randomNumber = Math.floor(Math.random() * getMaxIdPalavra());
+    let { data, error } = await supabase
+        .from('palavra')
+        .select('*')
+        .eq('id', randomNumber);
+    
+    if (error) {
+        throw error;
+    }
+
+    return data;
+
+}
+
+
+
+
+async function getMaxIdPalavra() {
+    let { data, error } = await supabase
+        .from('palavra')
+        .select('id')
+        .order('id', { ascending: false })
+        .limit(1);
+
+    if (error) {
+        throw error;
+    }
+
+    return data.length > 0 ? parseInt(data[0].id, 10) : null;
+}
+
 
 async function readPartidas(id) {
     
