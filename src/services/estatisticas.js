@@ -21,19 +21,19 @@ export default async function getEstatisticas(palavra) {
   partidas.forEach((resposta) => {
     if (resposta.vitoria) {
       vitorias++;
-      if (resposta['Tentativa-6']) {
+      if (resposta['Tentativa_6']) {
         tentativas6++;
       }
-      else if (resposta['Tentativa-5']) {
+      else if (resposta['Tentativa_5']) {
         tentativas5++;
       }
-      else if (resposta['Tentativa-4']) {
+      else if (resposta['Tentativa_4']) {
         tentativas4++;
       }
-      else if (resposta['Tentativa-3']) {
+      else if (resposta['Tentativa_3']) {
         tentativas3++;
       }
-      else if (resposta['Tentativa-2']) {
+      else if (resposta['Tentativa_2']) {
         tentativas2++;
       }
       else {

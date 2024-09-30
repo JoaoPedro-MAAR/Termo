@@ -61,6 +61,7 @@ export default function Home() {
   }
 
   useEffect(() => {
+    console.log("aqui porra");
     if (submittedValue.length === 5) {
       getData(submittedValue).then((data) => {
         if (!data) {

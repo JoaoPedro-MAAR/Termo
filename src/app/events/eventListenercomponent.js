@@ -72,9 +72,10 @@ const EventListenerComponent = () => {
         if (e.key === "Enter") {
           let resultado = tentativa();
           if (resultado === true) {
-            setVitoria(true);
-          }
-        }
+          setVitoria(true);
+          }else if (resultado === false) {
+          setVitoria(false);
+            }}
         if (e.key === "Backspace" || e.key === "Delete") {
           backspace();
         }

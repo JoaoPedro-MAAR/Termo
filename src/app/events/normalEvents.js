@@ -178,7 +178,7 @@ export function tentativa() {
           return result
         } else {
           IncrementCountErro();
-          if (count_erro == 6) {ParaTudo(getCountErro())}
+          if (count_erro == 6) {ParaTudo(getCountErro());return false}
         }
       }
       else{
