@@ -5,19 +5,20 @@ import styles from "./page.module.css";
 import EventListenerComponent from "./events/eventListenercomponent";
 import {GridComponent} from "./events/dynamic_gt.js";
 import KeyboardComponent from "./events/dynamic_kb.js";
-import {Clique_teclado, Clique_teclado_virtual} from "./events/normalEvents.js";
+import {Clique_teclado, Clique_teclado_virtual , Quit} from "./events/normalEvents.js";
 
+import ButtonComponent from "./ButtonComponent";
 import AcabouProvider,{Acabou} from "@/app/boolcontext.js";
 //import {certo} from "@/app/events/visualEvents.js";
 import { createContext } from "react";
+import { GetRandomPalavra } from "@/services/storage";
+import { MakeDictionary } from "./events/para_banco_dados";
 
 
 
-export function AtualizarBlocos( id, estadoatual, dataletter, setBlocos){
-  setBlocos(prevBlocos => prevBlocos.map(bloco => 
-    bloco.id === id ? { ...bloco, estadoatual, dataletter } : bloco
-  ));
-}
+
+
+
 export const AttBloco = (id, estadoatual, dataletter, setBlocos) => {
   setBlocos(prevBlocos => prevBlocos.map(bloco => 
     bloco.id === id ? { ...bloco, estadoatual, dataletter } : bloco
@@ -25,12 +26,35 @@ export const AttBloco = (id, estadoatual, dataletter, setBlocos) => {
 };
 
 
-function getUsuario(){
-  return usuario;
+
+
+export function getVitoria() {
+  if (typeof window !== 'undefined' && window.sessionStorage) {
+    let vitoria = sessionStorage.getItem('vitoria');
+    return vitoria;
+  }
+  return null;
 }
 
+export function Vitoria_true() {
+  if (typeof window !== 'undefined' && window.sessionStorage) {
+    sessionStorage.setItem('vitoria', true);
+  }
+}
 
-import ButtonComponent from "./ButtonComponent";
+export function Vitoria_false() {
+  if (typeof window !== 'undefined' && window.sessionStorage) {
+    sessionStorage.setItem('vitoria', false);
+  }
+}
+
+export function getUsuario() {
+  if (typeof window !== 'undefined' && window.localStorage) {
+    return localStorage.getItem('usuario');
+  }
+  return null;
+}
+
 
 export default function Home() {
   const [blocos, setBlocos] = useState(Array.from({ length: 30 }).map((_, index) => ({
@@ -51,8 +75,34 @@ export default function Home() {
 
     }
     setUsuario(JSON.parse(storedUser));
-  })
+  }, []);
 
+
+useEffect(() => {
+      const fetchPalavra = async () => {
+        try {
+          const palavraAleatoria = await GetRandomPalavra();
+          sessionStorage.setItem('palavra', palavraAleatoria);
+        } catch (error) {
+          console.error('Erro ao buscar a palavra:', error);
+        }
+      };
+  
+      fetchPalavra();
+    }, []);
+
+    useEffect(() => {
+      const savePartida = async () => {
+        try {
+          const Dict = await MakeDictionary(); // Certifique-se de que MakeDictionary é uma função assíncrona
+          await createPartida(Dict);
+        } catch (error) {
+          console.error('Erro ao salvar a partida:', error);
+        }
+      };
+    
+      savePartida();
+    }, [getVitoria()]);
   return (
     <>
     <div>
@@ -61,6 +111,7 @@ export default function Home() {
         
     <header>
       <ButtonComponent />
+
 
       <h1 className='titulo'>Wordle PT-BR</h1>
       </header>

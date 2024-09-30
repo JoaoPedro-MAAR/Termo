@@ -1,14 +1,16 @@
 import {getTentativas} from "@/app/model/text_box.js"
 import createPartida from "@/services/storage.js"
-import {getUsuario} from "@/app/page.js"
-import { getVitoria } from "./eventListenercomponent"
+import {getUsuario, getVitoria} from "@/app/page.js"
 import {getWord } from "./word.js"
 
-function MakeDictionary(){
+
+
+export async function MakeDictionary(){
     let tentativas = transformArray(getTentativas())
     let usuario = getUsuario()
+    let palavra = getWord()
     const Dict ={
-        palavra: getWord(),
+        palavra: palavra,
         usuario: usuario,
         Tentativa_1: tentativas[0],
         Tentativa_2: tentativas[1],
@@ -16,10 +18,20 @@ function MakeDictionary(){
         Tentativa_4: tentativas[3],
         Tentativa_5: tentativas[4],
         Tentativa_6: tentativas[5],
-        Vitoria: getVitoria()
+        vitoria: getVitoria()
 
     }
-    }
+    
+    return Dict
+}
+
+export async function savePartida(Dict){
+   
+    await createPartida(Dict)
+}
+
+    
+
 
 
 
@@ -33,8 +45,3 @@ function transformArray(arr) {
 
     return result;
 }
-
-
-
-const array = transformArray([1,2,3,4])
-console.log(array)

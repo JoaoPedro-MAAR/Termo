@@ -6,11 +6,11 @@ import { ShowAlert, Shake } from '@/app/events/visualEvents';
 import {Clique_teclado, Clique_teclado_virtual , tentativa, backspace , count_erro , getCountErro, IncrementCountErro,ParaTudo} from '@/app/events/normalEvents.js'
 //import { pegar_grid_tentativas } from './dynamic_gt';
 import { AtualizarBlocos } from '../page.js';
-import { getTodayWord, getTArrayWord } from './word.js';
+import { getWord, getTArrayWord } from './word.js';
 import { createContext, useContext, useState, useEffect } from "react";
 import { Acabou } from '@/app/boolcontext.js';
-
-
+import { MakeDictionary } from './para_banco_dados.js';
+import { Vitoria_false, Vitoria_true } from '@/app/page.js';
 
 
 
@@ -44,9 +44,9 @@ export function PARARTUDO(){
 
 let s = 0;
 
-const EventListenerComponent = () => {
+const EventListenerComponent = ({vitoria, }) => {
     const {value , toggleValue} = useContext(Acabou);
-    console.log('value:', value);
+    
     
     useEffect(() => {
         const handleKeyDown = (e) => {
@@ -78,6 +78,7 @@ const EventListenerComponent = () => {
 
         return () => {
             document.removeEventListener('keydown', handleKeyDown);
+
         };
     }, []);
 
@@ -133,10 +134,6 @@ function Botar_letra(e) {
       //proximo_Bloco.setAttribute("estado-atual", "selecionado");
     }
 
-let vitoria = false;
-export function getVitoria(){
-  return vitoria
-}
 
 
 
@@ -148,15 +145,16 @@ function ParaTudoEspecial(count_erro, event) {
       document.removeEventListener('keydown', event);
       if (count_erro != 6) {
         document.addEventListener('keyup', (e) => {ShowAlert("parabens, você ganhou!");Shake(getAllBlocos())})
-        vitoria = true;} 
+        Vitoria_true();} 
       else {
         document.addEventListener('keyup', (e) => {
-          ShowAlert(`Errou paizão, a palavra era <b>${Palavra_certa_com_caracteres_especiais.toUpperCase()}</b>. mais sorte na próxima :/`, 2000);
+          ShowAlert(`Errou paizão, a palavra era <b>${getWord().toUpperCase()}</b>. mais sorte na próxima :/`, 2000);
           Shake(getAllBlocos())
         })
       
-      vitoria = false;}
+      Vitoria_false();}
       Shake(getAllBlocos())
+      MakeDictionary();
       
     }
     

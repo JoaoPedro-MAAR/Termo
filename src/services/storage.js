@@ -63,8 +63,10 @@ async function searchUsuario(data) {
     
 }
 
-async function GetRandomPalavra() {
-    let randomNumber = Math.floor(Math.random() * getMaxIdPalavra());
+
+export async function GetRandomPalavra() {
+    let maxId = await getMaxIdPalavra();
+    let randomNumber = Math.floor(Math.random() * (maxId - 1 + 1)) + 1; // Gera um número entre 1 e maxId
     let { data, error } = await supabase
         .from('palavra')
         .select('*')
@@ -74,8 +76,7 @@ async function GetRandomPalavra() {
         throw error;
     }
 
-    return data;
-
+    return data[0].palavra_text;
 }
 
 
@@ -138,4 +139,4 @@ async function update(resource, id, data) {}
 
 async function remove(resource, id) {}
  
-export default { createPalavra, read, update, remove, readPartidas, createUsuario, searchUsuario };
+export default { createPalavra, read, update, remove, readPartidas, createUsuario, searchUsuario, GetRandomPalavra ,createPartida };

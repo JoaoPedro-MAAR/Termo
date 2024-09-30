@@ -3,10 +3,14 @@ import { useState, useEffect } from "react";
 import Storage from "@/services/storage";
 import Metricas from "@/components/metricas";
 import getEstatisticas from "@/services/estatisticas";
-
+import React from 'react';
+import Link from 'next/link';
 
 export default function Home() {
 
+
+
+  
   // variaveis de estado
   const [inputValue, setInputValue] = useState("");
   const [submittedValue, setSubmittedValue] = useState("");
@@ -82,6 +86,11 @@ export default function Home() {
       <h1 className='titulo'>Estatisticas</h1>
       </header>
       
+      <div className="button-container">
+  <Link href="/">
+      <button className="action-button">Voltar</button>
+  </Link>
+      </div>
       <form onSubmit={handleSubmit}>
         <input
           type="text" 

@@ -26,6 +26,7 @@ function AnaliseTentativa (main,resposta) {
     let tentativa = pegar_selecionados()
     let resultado = []
     var count = 0
+    console.log(resposta)
 
     /// analisa letra a letra se ela pertence a resposta, e atribui uma cor à letra
     tentativa.forEach((element) => {

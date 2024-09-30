@@ -1,11 +1,19 @@
 //import {Clique_teclado, Clique_teclado_virtual , Botar_letra , tentativa, backspace} from '@app/events/normalEvents.js'
 import Home ,{AttBloco} from '@/app/page.js'
 import {AddTextBox} from '@/app/model/text_box.js'
-import {getTodayWord} from '@/app/events/word.js'
-import { pegar_selecionados, pegar_grid_tentativas, getAllBlocos} from './eventListenercomponent';
+import {getWord} from '@/app/events/word.js'
+import { pegar_selecionados, pegar_grid_tentativas, getAllBlocos } from './eventListenercomponent';
 import { ShowAlert, Shake } from '@/app/events/visualEvents.js';
 import { Palavras_Reais } from '@/app/model/dicio';
+import { MakeDictionary } from './para_banco_dados';
+import { Vitoria_false, Vitoria_true } from '@/app/page.js';
 
+
+
+export function Quit(){
+  localStorage.removeItem('usuario')
+  window.location.reload()
+}
 
 const TAMANHO_PALAVRA = 5;
 let keyBloco = 0
@@ -24,7 +32,7 @@ function DecrementKeyBloco(){
 }
 
 export function Clique_teclado(e) {
-  console.log(e.key);
+ 
   if (e.key === "Enter") {
     tentativa();
   }
@@ -43,7 +51,7 @@ export function Clique_teclado(e) {
 
 
 export function Clique_teclado_virtual(e) {
-  console.log(e.target.dataset.key);
+  
   if (e.target.matches("[data-key]")) {
     Botar_letra(e.target.dataset.key);
     return;
@@ -156,9 +164,9 @@ export function tentativa() {
       return;
     }
       else{
-        if ((CheckWord(ArrayToString(AllSelecionadas))) || (getTodayWord() == ArrayToString(AllSelecionadas)) || true)  {
+        if ((CheckWord(ArrayToString(AllSelecionadas))) || (getWord() == ArrayToString(AllSelecionadas)) || true)  {
        ;
-        var result = AddTextBox(getTodayWord());
+        var result = AddTextBox(getWord());
         if (result == true) {ParaTudo(getCountErro())} else {
           IncrementCountErro();
           if (count_erro == 6) {ParaTudo(getCountErro())}
@@ -175,16 +183,18 @@ export function tentativa() {
 import { PARARTUDO } from '@/app/events/eventListenercomponent.js';
 
 export function ParaTudo(count_erro) {
-    console.log('para tudo')
-    console.log(tentativas)
     PARARTUDO();
     document.removeEventListener('keydown', Clique_teclado);
-    if (count_erro != 6) {document.addEventListener('keyup', (e) => {ShowAlert("parabens, você ganhou!");Shake(getAllBlocos())})} 
+    if (count_erro != 6) {document.addEventListener('keyup', (e) => {ShowAlert("parabens, você ganhou!");Shake(getAllBlocos())})
+    Vitoria_true()} 
     else {
       document.addEventListener('keyup', (e) => {
-        ShowAlert(`Errou paizão, a palavra era <b>${Palavra_certa_com_caracteres_especiais.toUpperCase()}</b>. mais sorte na próxima :/`, 2000);
+        ShowAlert(`Errou paizão, a palavra era <b>${getWord().toUpperCase()}</b>. mais sorte na próxima :/`, 2000);
         Shake(getAllBlocos())
-      })}
+      })
+    Vitoria_false()}
     Shake(getAllBlocos())
+    MakeDictionary()
+
   }
 
