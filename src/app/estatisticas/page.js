@@ -81,6 +81,7 @@ export default function Home() {
   }, [submittedValue]);
 
 
+
   return (
     <><header>
       <h1 className='titulo'>Estatisticas</h1>

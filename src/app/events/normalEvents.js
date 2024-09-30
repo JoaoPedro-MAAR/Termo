@@ -15,6 +15,10 @@ export function Quit(){
   window.location.reload()
 }
 
+
+
+
+
 const TAMANHO_PALAVRA = 5;
 let keyBloco = 0
 
@@ -31,10 +35,10 @@ function DecrementKeyBloco(){
   keyBloco -= 1
 }
 
-export function Clique_teclado(e) {
+export function Clique_teclado(e, vitoria) {
  
   if (e.key === "Enter") {
-    tentativa();
+    tentativa(vitoria);
   }
   if (e.key === "Backspace" || e.key === "Delete") {
     backspace();
@@ -94,7 +98,9 @@ export function backspace() {
     let grid = pegar_grid_tentativas()
     let lista_dos_selecionados = grid.querySelectorAll(
       '[estadoatual="selecionado"]',
+    
     );
+    if (lista_dos_selecionados.length === 0) {return}
     let ultimo_selecionado =
       lista_dos_selecionados[lista_dos_selecionados.length - 1];
     
@@ -167,7 +173,10 @@ export function tentativa() {
         if ((CheckWord(ArrayToString(AllSelecionadas))) || (getWord() == ArrayToString(AllSelecionadas)) || true)  {
        ;
         var result = AddTextBox(getWord());
-        if (result == true) {ParaTudo(getCountErro())} else {
+        if (result == true) {
+          ParaTudo(getCountErro())
+          return result
+        } else {
           IncrementCountErro();
           if (count_erro == 6) {ParaTudo(getCountErro())}
         }

@@ -11,7 +11,7 @@ import ButtonComponent from "./ButtonComponent";
 import AcabouProvider,{Acabou} from "@/app/boolcontext.js";
 //import {certo} from "@/app/events/visualEvents.js";
 import { createContext } from "react";
-import { GetRandomPalavra } from "@/services/storage";
+import storage  from "@/services/storage";
 import { MakeDictionary } from "./events/para_banco_dados";
 
 
@@ -38,6 +38,7 @@ export function getVitoria() {
 
 export function Vitoria_true() {
   if (typeof window !== 'undefined' && window.sessionStorage) {
+    console.log('Vitoria_true');
     sessionStorage.setItem('vitoria', true);
   }
 }
@@ -50,7 +51,10 @@ export function Vitoria_false() {
 
 export function getUsuario() {
   if (typeof window !== 'undefined' && window.localStorage) {
-    return localStorage.getItem('usuario');
+    let dict_usuario = JSON.parse(localStorage.getItem('usuario'));
+    let id_usuario = dict_usuario.id;
+    return id_usuario;
+
   }
   return null;
 }
@@ -65,6 +69,7 @@ export default function Home() {
   })));
 
   const {value , toggleValue} = useContext(Acabou);
+  const [vitoria, setVitoria] = useState(null);
 
   const [usuario, setUsuario] = useState(null);
   useEffect (() => {
@@ -81,8 +86,9 @@ export default function Home() {
 useEffect(() => {
       const fetchPalavra = async () => {
         try {
-          const palavraAleatoria = await GetRandomPalavra();
+          const palavraAleatoria = await storage.GetRandomPalavra();
           sessionStorage.setItem('palavra', palavraAleatoria);
+          sessionStorage.removeItem('vitoria');
         } catch (error) {
           console.error('Erro ao buscar a palavra:', error);
         }
@@ -91,23 +97,12 @@ useEffect(() => {
       fetchPalavra();
     }, []);
 
-    useEffect(() => {
-      const savePartida = async () => {
-        try {
-          const Dict = await MakeDictionary(); // Certifique-se de que MakeDictionary é uma função assíncrona
-          await createPartida(Dict);
-        } catch (error) {
-          console.error('Erro ao salvar a partida:', error);
-        }
-      };
     
-      savePartida();
-    }, [getVitoria()]);
   return (
     <>
     <div>
 
-      <EventListenerComponent/>
+      <EventListenerComponent vitoria={setVitoria}/>
         
     <header>
       <ButtonComponent />

@@ -11,6 +11,7 @@ import { createContext, useContext, useState, useEffect } from "react";
 import { Acabou } from '@/app/boolcontext.js';
 import { MakeDictionary } from './para_banco_dados.js';
 import { Vitoria_false, Vitoria_true } from '@/app/page.js';
+import storage from '@/services/storage.js';
 
 
 
@@ -44,34 +45,50 @@ export function PARARTUDO(){
 
 let s = 0;
 
-const EventListenerComponent = ({vitoria, }) => {
+const EventListenerComponent = () => {
     const {value , toggleValue} = useContext(Acabou);
+    const [vitoria, setVitoria] = useState(null);
+
+    useEffect(() => {
+      const savePartida = async () => {
+        try {
+          const Dict = await MakeDictionary(); // Certifique-se de que MakeDictionary é uma função assíncrona
+          await storage.createPartida(Dict);
+        } catch (error) {
+          console.error('Erro ao salvar a partida:', error);
+        }
+        console.log('Partida salva com sucesso!');
+      };
+
+      if (vitoria !== null) {
+      savePartida();}
+    }, [vitoria]);
+          
     
     
     useEffect(() => {
-        const handleKeyDown = (e) => {
-          if (value)  {
-              if (parar && s===0) {
-                  
-                  toggleValue();
-                  ParaTudo(getCountErro());
-                  ParaTudoEspecial(getCountErro(),handleKeyDown);
-                  s += 1;console.log('parou:', value , s);
-          }
 
-            
-              else {
-                  console.log('não parou:', value);
-                  Start_game();
-                  ;
+      const handleKeyDown = (e) => {
+        if (e.key === "Enter") {
+          let resultado = tentativa();
+          if (resultado === true) {
+            setVitoria(true);
           }
+        }
+        if (e.key === "Backspace" || e.key === "Delete") {
+          backspace();
+        }
+        if (e.key.match(/^[a-z]$/)) {
+          Botar_letra(e.key);
+        } else if (e.key.match(/^[A-Z]$/)) {
+          let letra_minuscula = e.key.toLowerCase();
+          Botar_letra(letra_minuscula);
+      
+        }
+      }
 
-          } 
-              
-        };
-        
-          document.addEventListener('keydown', Clique_teclado)
-          document.addEventListener('click', Clique_teclado_virtual)
+          document.addEventListener('keydown', handleKeyDown)
+          
        
         
           
@@ -85,12 +102,12 @@ const EventListenerComponent = ({vitoria, }) => {
     return (
         <div className='False'>
         </div>
-    );
+    );}
     
       
 
     
-};
+;
 
 export function getAllBlocos (){
   return document.querySelectorAll('.bloco');
